@@ -34,23 +34,99 @@ const printBoard = () => {
 
 const horizontalWin = () => {
   // Your code here to check for horizontal wins
+  // if player  gets three in a row from horizontal then 'YOU WIN'
+  if((board[0][0] == "X" && board[0][1] == "X" && board[0][2] == "X") || (board[0][0] == "O" && board[0][1] == "O" && board[0][2] == "O")) {
+    return true;
+  } else if ((board[1][0] == "X" && board[1][1] == "X" && board[1][2] == "X") || (board[1][0] == "O" && board[1][1] == "O" && board[1][2] == "O")) {
+    return true;
+} else if ((board[2][0] == "X" && board[2][1] == "X" && board[2][2] == "X") || (board[2][0] == "O" && board[2][1] == "O" && board[2][2] == "O")) {
+return true;
+}
 }
 
 const verticalWin = () => {
   // Your code here to check for vertical wins
+  // if player gets three in a row virtical then 'YOU WIN'
+  if((board[0][0] == "X" && board[1][0] == "X" && board[2][0] == "X") || (board[0][0] == "O" && board[1][0] == "O" && board[2][0] == "O")) {
+    return true;
+  } else if ((board[0][1] == "X" && board[1][1] == "X" && board[2][1] == "X") || (board[0][1] == "O" && board[1][1] == "O" && board[2][1] == "O")) {
+    return true;
+  } else if ((board[0][2] == "X" && board[1][2] == "X" && board[2][2] == "X") || (board[0][2] == "O" && board[1][2] == "O" && board[2][2] == "O")) {
+    return true;
+  }
 }
-
-const diagonalWin = () => {
-  // Your code here to check for diagonal wins
-}
-
-const checkForWin = () => {
-  // Your code here call each of the check for types of wins
-}
-
-const ticTacToe = (row, column) => {
-  // Your code here to place a marker on the board
+  const diagonalWin = () => {
+    // Your code here to check for diagonal wins
+    // if player gets three in a row diagonal the 'YOU WIN'
+    if((board[0][0] == "X" && board[1][1] == "X" && board[2][2] == "X") || (board[0][0] == "O" && board[1][1] == "O" && board[2][2] == "O")) {
+      return true;
+    } else if ((board[0][2] == "X" && board[1][1] == "X" && board[2][0] == "X") || (board[0][2] == "O" && board[1][1] == "O" && board[2][0] == "O")) {
+      return true;    
+    }
+  }
+  
+  
+  
+  const isLegal = (row, column) => {
+    //need to check if something is there if so reject move if not allow move
+   if (board[row][column]!== ' '){
+   return false;
+   } else {
+    return true;
+   }
+  }
+  const movePiece = (row, column) => {
+    // take whatever the playerTurn is and put it in the array
+    board[row].splice(column, 1, playerTurn);
+  }
+  const checkForWin = () => {
+    // Your code here call each of the check for types of wins
+    // console.log ('Player ${playerTurn} won!')
+  // } else{
+    //call horizontal win
+     //call virtical win
+    //call diaginal win
+    if (horizontalWin () || verticalWin () || diagonalWin ()) {
+      return true
+    }
+   
+    
+  //   changeMarker()
+  }
+  const changeMarker = () => {
+    if (playerTurn === 'X') {
+      playerTurn = 'O'
+    } else {
+      playerTurn ='X'
+    }
+  }
+  
+  const ticTacToe = (row, column) => {
+    // Your code here to place a marker on the board
+    // check if move is legal
+    // if the move is legal then move the piece if not then return false 
+    if (isLegal(row, column) === true){
+      movePiece(row, column)
+      if(checkForWin () === true){
+    // alert('YOU WIN!!!') 
+    console.log('YOU WIN!!!')
+    return true   
+  }else{
+     changeMarker ()
+  }
+    } else{
+      console.log('Not An Empty Box')
+      return false
+      // alert ('Not An Empty Box')
+    }
+  //   isLegal (row, column)
+  // // call move piece function
+  //  movePiece(row, column);
   // then check for a win
+  // if the function returns true then alert you win
+  
+  // if the player didnt win flip to the new players turn
+ 
 }
 
 const getPrompt = () => {
